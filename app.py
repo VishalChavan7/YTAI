@@ -4,6 +4,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import FAISS
+from urllib.parse import urlparse, parse_qs
 
 # Load environment variables
 load_dotenv()
@@ -11,6 +12,35 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
     raise ValueError("❌ OPENAI_API_KEY missing. Add it to your .env file.")
+
+
+# Helper: extract video ID from URL or return as-is if already an ID
+def extract_video_id(url_or_id: str) -> str:
+    s = url_or_id.strip()
+
+    # If it looks like a YouTube URL
+    if "youtube.com" in s or "youtu.be" in s:
+        parsed = urlparse(s)
+
+        # Short URL: https://youtu.be/<id>
+        if "youtu.be" in parsed.netloc:
+            return parsed.path.lstrip("/")
+
+        # Standard watch URL: https://www.youtube.com/watch?v=<id>
+        if parsed.path == "/watch":
+            qs = parse_qs(parsed.query)
+            vid = qs.get("v", [None])[0]
+            if vid:
+                return vid
+
+        # Embed or other path formats: /embed/<id>, /v/<id>, etc.
+        # We'll take the last non-empty part of the path
+        parts = [p for p in parsed.path.split("/") if p]
+        if parts:
+            return parts[-1]
+
+    # Otherwise, assume it's already a video ID
+    return s
 
 
 # Fetch transcript (EN → HI fallback)
@@ -85,7 +115,9 @@ def format_docs(docs) -> str:
 
 # MAIN
 def main():
-    video_id = input("Enter YouTube Video ID: ").strip()
+    raw_input_val = input("Enter YouTube Video URL or ID: ").strip()
+    video_id = extract_video_id(raw_input_val)
+    print(f"Using video ID: {video_id}")
 
     # 1. Fetch transcript (EN → HI)
     transcript, lang = fetch_transcript(video_id)
