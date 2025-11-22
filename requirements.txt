@@ -1,0 +1,9 @@
+python-dotenv
+youtube-transcript-api
+langchain-openai
+langchain-text-splitters
+langchain-community
+faiss-cpu
+tiktoken
+requests
+numpy
