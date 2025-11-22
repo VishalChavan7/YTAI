@@ -1,5 +1,6 @@
 # Ignore environment variables
 .env
+.DS_Store
 
 # Ignore virtual environments
 venv/
