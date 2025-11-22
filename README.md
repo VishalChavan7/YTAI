@@ -1,11 +1,10 @@
-# 📺 YouTube Transcript RAG
+# 📺 YouTube AI
 
 ### AI-Powered Question-Answering for YouTube Videos
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-00A67E.svg)](https://openai.com/)
 [![LangChain](https://img.shields.io/badge/LangChain-Enabled-green.svg)](https://www.langchain.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Ask questions about any YouTube video using AI. This project automatically fetches transcripts, handles English/Hindi language fallback, and uses RAG (Retrieval-Augmented Generation) to answer your questions accurately.
 
@@ -40,12 +39,6 @@ Ask questions about any YouTube video using AI. This project automatically fetch
 - Translates Hindi → English with high accuracy
 - Gracefully handles videos without captions
 
-### 🤖 Advanced RAG Pipeline
-- **Recursive text splitting** (1000 chars, 200 overlap)
-- **Semantic search** with OpenAI embeddings
-- **Top-4 retrieval** for context-aware answers
-- **Grounded responses** (answers only from transcript)
-
 ### 💬 Interactive Q&A
 Ask unlimited questions like:
 - *"What is the main topic of this video?"*
@@ -58,7 +51,7 @@ Ask unlimited questions like:
 ## 🏗️ Project Structure
 
 ```
-youtube-transcript-rag/
+YTAI/
 │
 ├── app.py                 # Main application
 ├── requirements.txt       # Python dependencies
@@ -73,7 +66,7 @@ youtube-transcript-rag/
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.5 or higher
 - OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
 - pip package manager
 
@@ -82,8 +75,8 @@ youtube-transcript-rag/
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/<your-username>/youtube-transcript-rag.git
-cd youtube-transcript-rag
+git clone https://github.com/<your-username>/YTAI.git
+cd YTAI
 ```
 
 **2. Create a virtual environment**
@@ -153,51 +146,18 @@ https://www.youtube.com/watch?v=eNgD1kg3U14
 
 ---
 
-## 🧠 How It Works
-
-### 1. Transcript Fetching
-
-```python
-# Try English first
-yt.fetch(video_id, languages=["en"])
-
-# Fallback to Hindi if needed
-yt.fetch(video_id, languages=["hi"])
-```
-
-### 2. Translation (if Hindi)
-
-Uses GPT-4o-mini to translate the entire transcript:
-- Line-by-line accuracy
-- No summarization
-- Natural English output
-
-### 3. Vectorization Pipeline
-
-- **Split:** RecursiveCharacterTextSplitter (1000 chars)
-- **Embed:** OpenAI text-embedding-3-small
-- **Store:** FAISS vector database
-
-### 4. Question Answering
-
-- **Retrieval:** Top-4 most relevant chunks
-- **Context:** Only uses transcript information
-- **Response:** Grounded, factual answers
-
----
-
 ## 📦 Dependencies
 
 ```txt
-python-dotenv        # Environment variable management
-youtube-transcript-api  # Transcript fetching
-langchain-openai     # OpenAI integration
+python-dotenv             # Environment variable management
+youtube-transcript-api    # Transcript fetching
+langchain-openai          # OpenAI integration
 langchain-text-splitters  # Text chunking
-langchain-community  # FAISS support
-faiss-cpu            # Vector search
-tiktoken             # Token counting
-requests             # HTTP requests
-numpy                # Numerical operations
+langchain-community       # FAISS support
+faiss-cpu                 # Vector search
+tiktoken                  # Token counting
+requests                  # HTTP requests
+numpy                     # Numerical operations
 ```
 
 Install all at once:
@@ -229,68 +189,17 @@ pip install -r requirements.txt
 
 ## 🛡️ Important Notes
 
-- ✅ Requires videos with **English or Hindi captions**
-- ✅ API key must be valid and have sufficient credits
-- ✅ Conversations are **not stored** (ephemeral)
-- ✅ Translation may take 30-60 seconds for long videos
-- ⚠️ Does not work with auto-generated captions (currently)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here are some ideas for improvements:
-
-### Potential Enhancements
-- 🌍 Support for more languages (Spanish, French, German)
-- 🎨 Streamlit/Gradio web interface
-- 🔗 Direct YouTube URL parsing
-- 📊 Video summarization mode
-- 💾 Conversation history storage
-- 🚀 Batch processing for multiple videos
-- 🎯 Timestamp-aware responses
-
-### How to Contribute
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- [LangChain](https://www.langchain.com/) for the RAG framework
-- [OpenAI](https://openai.com/) for GPT and embeddings
-- [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api) for transcript extraction
-- [FAISS](https://github.com/facebookresearch/faiss) for efficient vector search
+- Requires videos with **English or Hindi captions**
+- API key must be valid and have sufficient credits
+- Conversations are **not stored** (ephemeral)
+- Translation may take 30-60 seconds for long videos
 
 ---
 
 ## 📧 Contact
 
 **Questions or suggestions?** Feel free to:
-- Open an [issue](https://github.com/<your-username>/youtube-transcript-rag/issues)
-- Submit a [pull request](https://github.com/<your-username>/youtube-transcript-rag/pulls)
-- Reach out via email: your.email@example.com
+- Open an [issue](https://github.com/<your-username>/YTAI/issues)
+- Submit a [pull request](https://github.com/<your-username>/YTAI/pulls)
+- Reach out via email: vishal242392@gmail.com
 
----
-
-## ⭐ Support
-
-If this project helped you, please consider:
-- Giving it a **star** ⭐ on GitHub
-- Sharing it with others who might find it useful
-- Contributing improvements or bug fixes
-
----
-
-**Made with ❤️ and Python**
